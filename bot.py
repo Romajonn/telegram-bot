@@ -1,13 +1,24 @@
 import os
-from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
-# Render port kutayotgani uchun kichik veb-server
+# Render uchun port serveri
+class DummyHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"OK")
+
+    def do_HEAD(self):
+        self.send_response(200)
+        self.end_headers()
+
 def run_dummy_server():
     port = int(os.environ.get("PORT", 8080))
-    server = HTTPServer(('0.0.0.0', port), BaseHTTPRequestHandler)
+    server = HTTPServer(('0.0.0.0', port), DummyHandler)
     server.serve_forever()
 
+# Veb-serverni orqa fonda (background thread) yoqamiz
 threading.Thread(target=run_dummy_server, daemon=True).start()
 import telebot
 from telebot import types
@@ -53,4 +64,4 @@ def check_sub(message):
             print(f"Xabar o'chirishda xatolik: {e}")
 
 print("Bot muvaffaqiyatli ishga tushdi! Guruhni tekshirmoqda...")
-bot.infinity_polling()
+bot.infinity_polling(skip_pending=True)
