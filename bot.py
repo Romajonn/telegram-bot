@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 
 # Tokeningizni yozing
-API_TOKEN = '8721986149:AAHun68ulGe7Rm_3mi2q5sb9iQHmJVd40Kg'
+API_TOKEN = '8721986149:AAHun68uIGe7Rm_3mi2q5sb9iQHmJVd40Kg'
 
 # Kanal username'ini yozing
 CHANNEL_USERNAME = '@Namangan_toshkent3'
